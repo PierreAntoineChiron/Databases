@@ -52,9 +52,7 @@ select
 from 
 	film as f
 where
-	f.description
-like
-	'%Chef%'
+	f.description like '%Chef%'
 ```
 
 #### 6
@@ -154,5 +152,14 @@ from
 
 #### 14
 ```sql
-
+select
+	r.customer_id as client_id,
+	count(1) as nbr_location
+from 
+	rental as r
+group by
+	customer_id
+order by
+	nbr_location DESC
+limit 1;
 ```
