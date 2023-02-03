@@ -163,3 +163,22 @@ order by
 	nbr_location DESC
 limit 1;
 ```
+
+#### 15
+```sql
+select
+	p.staff_id,
+	count(1) as nbr_location
+from 
+	payment as p
+group by
+	staff_id
+order by 
+	nbr_location DESC
+limit 1;
+```
+
+#### 16
+```sql
+
+```
