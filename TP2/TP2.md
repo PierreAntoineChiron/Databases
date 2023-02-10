@@ -208,13 +208,25 @@ group by
 ```
 
 #### 12
+Normalement non
 ```sql
 
 ```
 
 #### 13
 ```sql
-
+select 
+	s.first_name as Prénom,
+	s.last_name as Nom,
+	count(r.rental_id)
+from
+	staff as s
+	inner join rental as r 
+		on s.staff_id = r.staff_id
+group by
+	Nom, Prénom
+order by count(r.rental_id) desc
+limit 1
 ```
 
 #### 14
