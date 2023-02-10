@@ -164,7 +164,47 @@ where
 
 #### 11
 ```sql
-
+select 
+	cu1.last_name as Nom1,
+	cu1.first_name as Prenom1,
+	cu2.last_name as Nom2,
+	cu2.first_name as Prenom2,
+	ci.city as Ville,
+	f.title as Film
+from
+	rental as r
+	inner join customer as cu1
+		on r.customer_id = cu1.customer_id
+	inner join address as a
+		on cu1.address_id = a.address_id
+	inner join city as ci
+		on a.city_id = ci.city_id
+	inner join inventory as i
+		on r.inventory_id = i.inventory_id
+	inner join film as f
+		on i.film_id = f.film_id
+		
+	inner join city as ci2
+		on ci.city_id = ci2.city_id
+	inner join address as a2
+		on a2.city_id = ci2.city_id
+	inner join customer as cu2
+		on a2.address_id = cu2.address_id
+	inner join rental as r2
+		on cu2.customer_id = r2.customer_id
+	inner join inventory as i2
+		on r2.inventory_id = i2.inventory_id
+	inner join film as f2
+		on i2.film_id = f2.film_id
+where
+	f.title = f2.title and cu1.last_name <> cu2.last_name
+group by 
+	cu1.last_name,
+	cu1.first_name,
+	cu2.last_name,
+	cu2.first_name,
+	ci.city,
+	f.title
 ```
 
 #### 12
