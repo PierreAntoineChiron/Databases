@@ -236,7 +236,33 @@ limit 1
 
 #### 15
 ```sql
-
+with rentals_number_film(title, rentals_number) as (
+	select
+		film.title,
+		count(rental_id) rentals_number
+	from
+		film
+			inner join inventory
+				on inventory.film_id = film.film_id
+			inner join rental
+				on rental.inventory_id = inventory.inventory_id
+		group by film.title
+),
+ranks as (
+	select
+		title,
+		dense_rank() over (order by rentals_number desc) as rental_rank
+	from
+		rentals_number_film
+)
+select
+	title
+from
+	ranks
+where
+	rental_rank = 8
+order by
+	title
 ```
 
 #### 16
@@ -256,7 +282,16 @@ limit 1
 
 #### 19
 ```sql
-
+select
+	film1.title as title1,
+	film2.title as title2,
+	film1.length
+from
+	film as film1
+	inner join film as film2
+		on film1.length = film2.length
+where film1.film_id <> film2.film_id
+order by film1.length
 ```
 
 #### 20
